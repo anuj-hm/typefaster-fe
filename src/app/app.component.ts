@@ -29,24 +29,27 @@ export class AppComponent {
 
   play() {
     this.showCountdown = true
-    this.counter$ = timer(0, 1000).pipe(
-      take(this.count),
-      map(() => {
-        --this.count
-        if (this.count === 0) {
-          this.showPlayContainer = true
-        }
-        return this.count
-      })
-    );
     this.appService.start().subscribe((data: any) => {
       if (data.data && data.data.userData) {
+        this.counter$ = timer(0, 1000).pipe(
+          take(this.count),
+          map(() => {
+            --this.count
+            if (this.count === 0) {
+              this.showPlayContainer = true
+            }
+            return this.count
+          })
+        );
         this.startTime = new Date()
         this.resData = data.data.userData;
         this.jwtToken = data.data.jwtToken;        
       } else {
         this.errorMessage = data.message;
       }
+    },  (err) => {
+      this.errorMessage = 'Server down, please check later';
+
     })
   }
 

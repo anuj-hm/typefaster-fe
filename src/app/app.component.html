@@ -3,12 +3,14 @@
   <div *ngIf="showCountdown && !showPlayContainer">
     <h2>{{counter$ | async}}</h2>
   </div>
+  <div *ngIf="errorMessage">
+    <h2>{{errorMessage}}</h2>
+  </div>
   <div *ngIf="showPlayContainer && !showResult && resData">
     <h2>Input Text : {{resData.text}}</h2>
-    <form class="example-form">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Please start typeing</mat-label>
-        <textarea matInput placeholder="Please start typing" [value]="userText"
+    <form class="form">
+      <mat-form-field class="full-width" appearance="fill">
+        <textarea class="grey-background" matInput placeholder="Please start typing" [value]="userText"
           (input)="onClickvalidate($event)">{{userText}}</textarea>
       </mat-form-field>
     </form>
